@@ -10,30 +10,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import environ
-import os
 from pathlib import Path
-
-# Initialise environment variables
-env = environ.Env(DEBUG=(bool, False))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-l9i551$rgd^q7l2hchc_=zppj7auc123)m=_y#bnc0^_y@2-kh'
-DEBUG = env('DEBUG')
-
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-l9i551$rgd^q7l2hchc_=zppj7auc123)m=_y#bnc0^_y@2-kh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -84,16 +75,10 @@ WSGI_APPLICATION = 'AlertZ.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # read os.environ['DATABASE_URL'] and raises
-    # ImproperlyConfigured exception if not found
-    #
-    # The db() method is an alias for db_url().
-    'default': env.db(),
-    # read os.environ['SQLITE_URL']
-    #'extra': env.db_url(
-    #    'SQLITE_URL',
-    #    default='sqlite:////tmp/my-tmp-sqlite.db'
-    #)
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
