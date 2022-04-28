@@ -13,13 +13,11 @@ class Sensor(models.Model):
     
 class Registro(models.Model):
     fecha_hora = models.DateTimeField()
-    sensor = models.ForeignKey(Sensor, on_delete=models.DO_NOTHING,default=True)
+    sensor = models.ForeignKey(Sensor, on_delete=models.DO_NOTHING)
     def __str__(self):
-        return self.fecha_hora
+        return str(self.fecha_hora)
     
 class Imagen(models.Model):
-    nombre = models.CharField(max_length=50)
-    registro = models.OneToOneField(Registro, default=True ,on_delete=models.DO_NOTHING,default=True, primary_key = True) 
-    imagen = models.ImageField(blank=False, default=False)
-    def __str__(self):
-        return self.registro
+    nombre = models.CharField(max_length=50, default=True)
+    registro = models.OneToOneField(Registro ,on_delete=models.DO_NOTHING, null=False, primary_key=True) 
+    imagen = models.ImageField(blank=False, default=None)
