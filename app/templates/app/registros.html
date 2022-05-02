@@ -1,0 +1,27 @@
+{%  extends 'app/components/base.html' %}
+
+{% block title %}{{tarea.titulo}}{% endblock %}
+
+{% block extraclass %}registros{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center">
+    <ul class="list-group mt-5 text-white">
+        {% for registro in registros  %}
+            <li class="list-group-item d-flex justify-content-between align-content-center">
+                <div class="d-flex flex-row"> <img src="{% static 'assets/img/marcianito-cumbia.gif' %}" width="40" />
+                    <div class="ml-2">
+                        <h6 class="mb-0">{{registro.fecha_hora}}</h6>
+                        <div class="about"> {{registro.sensor.nombre}} </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+        
+    </ul>
+</div>
+
+{% endblock %}
