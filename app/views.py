@@ -4,6 +4,9 @@ from app.models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 
+def index(request):
+    return render(request, 'app/index.html')
+
 def todosRegistros(request):
     registros = Registro.objects.all()
     contexto = {
