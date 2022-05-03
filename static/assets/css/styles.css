@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Akira';
+    src: url('Akira-Expanded.otf') format("otf");
+}
+
+body{
+    background-color: gray;
+}
+div.c-principal{
+    width: 80%;
+
+}
+h1.titulo{
+   font-family: 'Akira'; 
+}
