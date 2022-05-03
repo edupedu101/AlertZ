@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(Sensor)
 admin.site.register(Registro)
 admin.site.register(Imagen)
+admin.site.register(Periferico)
