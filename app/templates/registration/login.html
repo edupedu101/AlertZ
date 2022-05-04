@@ -1,0 +1,38 @@
+{% extends '../app/components/base.html' %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<div class="container login-form" >
+    <div>
+        <h3>Iniciar Sesión</h3>
+    </div>
+    <form method="post" >
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                <label class="block" for="{{ field.auto_id }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+
+        <div >
+            <button class="btn btn-primary btn-block">Login</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
