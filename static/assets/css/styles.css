@@ -1,15 +1,33 @@
 @font-face {
     font-family: 'Akira';
-    src: url('Akira-Expanded.otf') format("otf");
+    src: url('../fonts/Akira-Expanded.otf') format("otf");
 }
 
 body{
-    background-color: gray;
+    background-color: #242424;
+    text-align: center;
+}
+header{
+    background-color: #000000;
+}
+body p{
+    
+    color: white;
 }
 div.c-principal{
     width: 80%;
+    height: 100 hv;
+    background-color: rgb(110, 110, 110);
+}
+
+h1.titulo{
+    font-family: 'Akira';
+}
+.login-form{
+    background-color: white;
+    width: 40%;
 
 }
-h1.titulo{
-   font-family: 'Akira'; 
+.form-group{
+    
 }

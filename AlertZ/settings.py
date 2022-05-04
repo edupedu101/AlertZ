@@ -34,8 +34,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 
+ALLOWED_HOSTS = ['192.168.40.173','AlertZ','AlertZ.com','alertz','127.0.0.1','AlertZ.kek']
 
-ALLOWED_HOSTS = ['192.168.40.173','AlertZ','AlertZ.com','alertz','127.0.0.1', 'AlertZ.kek']
 
 
 # Application definition
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'AlertZ.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates',],
+        'DIRS': [BASE_DIR / 'templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,12 +134,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'static'),
+)
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login Info
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
