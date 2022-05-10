@@ -6,7 +6,14 @@
 body{
     background-color: #242424;
     text-align: center;
+
 }
+body ul{
+    list-style-type: none;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+
 header{
     background-color: #000000;
 }
@@ -14,10 +21,17 @@ body p{
     
     color: white;
 }
+
 div.c-principal{
     width: 80%;
-    height: 100 hv;
+    min-height: 100%;
     background-color: rgb(110, 110, 110);
+    border: 1px solid rgb(110, 110, 110);
+    padding: 1em;
+}
+
+div.titulo{
+    margin-bottom: 2em;
 }
 
 h1.titulo{
@@ -30,4 +44,27 @@ h1.titulo{
 }
 .form-group{
     
+}
+.lista-sensores {
+    width: 40em;    
+    min-height: 32%;
+    margin: 0px 3em;
+    background-color: rgb(177, 177, 177) ;
+    border: 1px solid rgb(177, 177, 177);
+    
+}
+.lista-sensores h3{
+    text-align: center;
+    
+}
+
+.contenido-registro > div{
+    background-color: rgb(110, 110, 110);
+    margin:0.2em 0.5em;
+    padding: 0.3em 0.9em
+    
+}
+.contenido-registro a{
+    text-decoration: none;
+    color: black;
 }
