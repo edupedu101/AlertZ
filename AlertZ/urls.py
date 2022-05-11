@@ -23,3 +23,16 @@ urlpatterns = [
     path('', include('app.urls'))
 ]
 
+#API
+from . import views
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += [
+    path('api/ping', views.ping),
+    path('api/addRegistro', views.sensorRegistro),
+    path('api/addImagen', views.sensorImagen),
+    path('api/sensores', views.getSensores),
+    path('api/registros/<int:id_sensor>', views.getRegistros ),
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

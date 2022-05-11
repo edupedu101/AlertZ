@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 def index(request):
     return render(request, 'app/index.html')
 
+@login_required
 def todosRegistros(request):
     registros = Registro.objects.all()
     contexto = {
@@ -15,7 +16,8 @@ def todosRegistros(request):
     }
     
     return render(request, 'app/registros.html', contexto)
-    
+  
+@login_required  
 def registros(request):
     sensores = Sensor.objects.filter(usuario =request.user)
     registros = Registro.objects.filter(sensor = sensores).values
@@ -24,14 +26,19 @@ def registros(request):
     }
     
     return render(request, 'app/registros.html', contexto)
-       
-class CustomLoginForm(AuthenticationForm):
-  def __init__(self, *args, **kwargs):
-    super().__init__(*args, **kwargs)
-    print(self.fields['username'].label)
-    self.fields['username'].widget.attrs.update(
-      {'class': 'w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'}
-    )
-    self.fields['password'].widget.attrs.update(
-      {'class': 'w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'}
-    )
+
+@login_required
+def panelControl(request):
+    username = request.user.username
+    sensores = Sensor.objects.filter(usuario = request.user)
+    dispositivos = Dispositivo.objects.filter(usuario = request.user)
+    contexto = {
+        "username": username,
+        "sensores": list(sensores),
+        "dispositivos": list(dispositivos)
+    }
+    return render(request, 'app/dashboard.html', contexto)     
+
+@login_required
+def showRegistros(request):
+  return render(request, "app/registros.html")

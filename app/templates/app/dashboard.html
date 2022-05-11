@@ -1,0 +1,52 @@
+{%  extends 'app/components/base.html' %}
+
+{% block title %}{{tarea.titulo}}{% endblock %}
+
+{% block extraclass %}AlertZ{% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container justify-content-center c-principal">
+        <div class="titulo" >
+            <h2>Bienvenido {{username}}</h2>
+        </div>   
+        <div class="container d-flex justify-content-center flex-">
+            <div class="lista-sensores">
+                <h3>Sensores</h3>
+                <div>
+                    <ul>
+                        {% for sensor in sensores %}
+                            <li>
+                                <div class="d-flex  flex-row contenido-registro">
+                                    <div><a href="cpanel/registros">{{sensor.nombre}}</a></div>
+                                    <div>{{sensor.modelo}}</div>
+                                    <div>{{sensor.desc}}</div>                               
+                                </div>
+                            </li>
+                        
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="lista-sensores">
+                <h3>Dispositivos</h3>
+                <div>
+                    <ul>
+                        {% for dispositivo in dispositivos  %}
+                        <li>
+                            <div class="d-flex  flex-row contenido-registro">
+                                <div>{{dispositivo.nombre}}</div>
+                                <div>{{dispositivo.modelo}}</div>
+                                <div>{{dispositivo.status}}</div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div></div>
+    </div>
+
+{% endblock %}
