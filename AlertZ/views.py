@@ -1,5 +1,6 @@
 from ast import For, expr_context
 from django.http import JsonResponse
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.files.storage import default_storage
@@ -12,9 +13,12 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
 import os, shutil, errno
 import json
 import datetime
+from json import JSONEncoder
+
 
 def ping(request):  
     if (request.method=='GET'):
@@ -29,22 +33,20 @@ def ping(request):
 @login_required
 def getRegistros(request, id_sensor):
     registros = Registro.objects.filter(sensor = id_sensor)
+    if (len(registros) == 0):
+        raise Http404()
+            
     return JsonResponse({
         'data':list(registros)
     })
     
-@api_view(['GET'])
-@login_required
-def getNombreSensor(request, id_sensor):
-    nombre = Sensor.objects.filter(id = id_sensor)
-    return JsonResponse({
-        'data':list(nombre)
-    })
 
 @api_view(['GET'])
 @login_required
 def getSensores(request):
-    sensores = Sensor.objects.filter(usuario = request.user.username)
+    sensores = Sensor.objects.filter(usuario = request.user.id)
+    if (len(sensores) == 0):
+        raise Http404()
     return JsonResponse({
         'data':list(sensores)
     })

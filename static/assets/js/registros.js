@@ -1,6 +1,7 @@
-const app = Vue.createapp({
+const app = Vue.createApp({
     data(){
-        return {           
+        return {     
+            indice: 0,      
             id_sensor: '',
             nombre_sensor: '',
             sensores: [],
@@ -10,6 +11,13 @@ const app = Vue.createapp({
     },
 
     methods: {
+        get_sensores(){
+            fetch(`/api/sensores`,{method: 'GET'})
+            .then(response => response.json())
+            .then((res) =>{
+                this.sensores = res.data;
+            })
+        },
         get_registros(){
             fetch(`/api/registros/${this.id_sensor}`, {method: 'GET'})
             .then(response => response.json())
@@ -18,27 +26,35 @@ const app = Vue.createapp({
             })
         },
         get_nombre_sensor(){
-            fetch(`/api/sensor/${this.id_sensor}`,{method: 'GET'})
-            .then(response => response.json())
-            .then((res) => {
-                this.nombre_sensor = res.data;
-            })
-        },
-        get_sensores(){
-            
-        }
-        ,
-        set_anterior(){
-            if(this.id_alumno > 0){
-                this.id_alumno--;
-                this.get_registros();
-            }
-        },
-        set_siguiente() {
-            this.id_alumno++;
-            
+            this.nombre_sensor = this.sensores[this.indice].nombre;   
         },
         
-    }
+        set_anterior(){
+            if(this.indice  <= 0){
+                
+            }else{
+                this.indice--;
+                this.id_sensor = sensores[this.indice].id;
+                this.get_registros();}
+        },
+        set_siguiente() {
+            if(this.indice  >= len(this.sensores)){
+
+            }else{
+                this.indice++;
+                this.id_sensor = sensores[this.indice].id;
+                this.get_registros();
+                this.get_nombre_sensor();
+            }
+        },
+        
+    },
+    mounted() {
+            this.get_sensores();
+            this.id_sensor = sensores[this.indice].id;
+            this.get_registros();
+            this.get_nombre_sensor();
+    
+      }
 });
 const root = app.mount('#app')

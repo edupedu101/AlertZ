@@ -35,5 +35,4 @@ urlpatterns += [
     path('api/addImagen', views.sensorImagen),
     path('api/sensores', views.getSensores),
     path('api/registros/<int:id_sensor>', views.getRegistros ),
-    path('api/nombre_sensor/<int:id_sensor>', views.getNombreSensor),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

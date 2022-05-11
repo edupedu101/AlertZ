@@ -19,7 +19,7 @@
                         {% for sensor in sensores %}
                             <li>
                                 <div class="d-flex  flex-row contenido-registro">
-                                    <div><a href="cpanel/registros/{{sensor.id}}">{{sensor.nombre}}</a></div>
+                                    <div><a href="cpanel/registros">{{sensor.nombre}}</a></div>
                                     <div>{{sensor.modelo}}</div>
                                     <div>{{sensor.desc}}</div>                               
                                 </div>
@@ -36,7 +36,7 @@
                         {% for dispositivo in dispositivos  %}
                         <li>
                             <div class="d-flex  flex-row contenido-registro">
-                                <div><a href="/registros/+{{dispositivo.id}}">{{dispositivo.nombre}}</a></div>
+                                <div>{{dispositivo.nombre}}</div>
                                 <div>{{dispositivo.modelo}}</div>
                                 <div>{{dispositivo.status}}</div>
                             </div>

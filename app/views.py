@@ -40,6 +40,5 @@ def panelControl(request):
     return render(request, 'app/dashboard.html', contexto)     
 
 @login_required
-def showRegistros(request, id_sensor):
-  registros = Registro.objects.filter(sensor = id_sensor)
+def showRegistros(request):
   return render(request, "app/registros.html")

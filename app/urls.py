@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('registros', views.todosRegistros, name="registros"),
     path('cpanel', views.panelControl, name="cpanel"),
-    path('cpanel/registros/<int:id_sensor>', views.showRegistros, name="registros")
+    path('cpanel/registros', views.showRegistros, name="registros")
 ]
 
 
