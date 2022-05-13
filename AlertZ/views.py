@@ -51,6 +51,16 @@ def getSensores(request):
     return Response({
         'data':list(sensores_list)
     })
+
+@api_view(['POST'])
+@authentication_classes([BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def apiPrueba(request):
+    texto = request.POST['texto']
+    return Response({
+        'status': 'OK',
+        'texto' : texto
+    })
     
 @api_view(['POST'])
 @authentication_classes([BasicAuthentication])
@@ -88,9 +98,10 @@ def sensorRegistro(request):
     })
 
 
+
+@api_view(['POST'])
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
-@api_view(['POST'])
 def sensorImagen(request):
     
     getRef=request.POST['refcode']
@@ -137,7 +148,7 @@ def sensorImagen(request):
      
     file_path = os.path.join(new_dir_path, imagen.name )    
     default_storage.save(file_path, imagen)
-    r.imagen = (imagen)
+    r.imagen = (file_path)
     r.save()
     return Response({
         'status': 'OK',
