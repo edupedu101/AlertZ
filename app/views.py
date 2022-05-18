@@ -4,10 +4,12 @@ from app.models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.forms.models import model_to_dict
 
 def index(request):
     return render(request, 'app/index.html')
 
+@login_required
 def todosRegistros(request):
     registros = Registro.objects.all()
     contexto = {
@@ -15,23 +17,36 @@ def todosRegistros(request):
     }
     
     return render(request, 'app/registros.html', contexto)
+
+def prueba(request):
+  return render(request, 'app/example.html')
+
+@login_required  
+def showRegistros(request, id_sensor):
+    id_sensores = []
+    sensores = Sensor.objects.filter(usuario=request.user.id)
+    for sensor in sensores:
+      id_sensores.append(sensor.id)
     
-def registros(request):
-    sensores = Sensor.objects.filter(usuario =request.user)
-    registros = Registro.objects.filter(sensor = sensores).values
+    sensor = Sensor.objects.get(id=id_sensor)
+    sensor_dict = model_to_dict(sensor)
+    registros = Registro.objects.filter(sensor_id = id_sensor).values()
     contexto = {
-        "registros": list(registros)
+      'sensor':sensor_dict,
+      'sensores': list(id_sensores),
+      'registros': list(registros)
     }
-    
     return render(request, 'app/registros.html', contexto)
-       
-class CustomLoginForm(AuthenticationForm):
-  def __init__(self, *args, **kwargs):
-    super().__init__(*args, **kwargs)
-    print(self.fields['username'].label)
-    self.fields['username'].widget.attrs.update(
-      {'class': 'w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'}
-    )
-    self.fields['password'].widget.attrs.update(
-      {'class': 'w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600'}
-    )
+
+@login_required
+def panelControl(request):
+    username = request.user.username
+    sensores = Sensor.objects.filter(usuario = request.user)
+    dispositivos = Dispositivo.objects.filter(usuario = request.user)
+    contexto = {
+        "username": username,
+        "sensores": list(sensores),
+        "dispositivos": list(dispositivos)
+    }
+    return render(request, 'app/dashboard.html', contexto)     
+
