@@ -32,14 +32,21 @@ def ping(request):
 @api_view(['GET'])
 @login_required
 def getRegistros(request, id_sensor):
-    registros = Registro.objects.filter(sensor = id_sensor)
+    registros = Registro.objects.filter(sensor = id_sensor).values()
     if (len(registros) == 0):
         raise Http404()
             
     return JsonResponse({
         'data':list(registros)
     })
-    
+
+@api_view(['GET'])
+@login_required
+def getNombreSensor(request, id_sensor):
+    nombre_sensor = Sensor.objects.get(id = id_sensor).nombre
+    return Response({
+        'data':nombre_sensor
+    })  
 
 @api_view(['GET'])
 @login_required
@@ -52,6 +59,19 @@ def getSensores(request):
         'data':list(sensores_list)
     })
 
+@api_view(['GET'])
+@login_required
+def getNumRegistros(request):
+    sensores = Sensor.objects.filter(usuario = request.user.id)
+    lista_registros = []
+    for sensor in sensores:
+        registros = Registro.objects.filter(sensor = sensor.id)
+        lista_registros.append(len(registros))
+    return Response({
+        'data':lista_registros
+    })
+        
+
 @api_view(['POST'])
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
@@ -59,7 +79,7 @@ def apiPrueba(request):
     texto = request.POST['texto']
     return Response({
         'status': 'OK',
-        'texto' : texto
+        'texto' : texto 
     })
     
 @api_view(['POST'])
@@ -126,9 +146,9 @@ def sensorImagen(request):
             'message': 'No se ha podido añadir el registro'
         })
     username=sensor.usuario.username
-    static_dir = settings.STATICFILES_DIRS[0]
+    media_dir = settings.MEDIA_ROOT
     try:
-        new_dir_path = os.path.join(static_dir, "users", username)
+        new_dir_path = os.path.join(media_dir, "users", username)
     except:
         return Response({
             'status': 'ERROR',
@@ -146,15 +166,16 @@ def sensorImagen(request):
         })
     
      
-    file_path = os.path.join(new_dir_path, imagen.name )    
+    file_path = os.path.join(media_dir,"users", username, imagen.name )    
     default_storage.save(file_path, imagen)
-    r.imagen = (file_path)
+    relative_path = os.path.join("users", username, imagen.name )   
+    r.imagen = (relative_path)
     r.save()
     return Response({
         'status': 'OK',
         'message': 'imagen guardada',
         'usuario': request.user.username,
-        'path': file_path
+        'path': relative_path
     })
         
            
