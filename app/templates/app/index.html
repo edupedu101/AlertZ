@@ -7,30 +7,26 @@
 {% load static %}
 
 {% block content %}
-    <div class="c-principal container">
-        <section class=" jumbotron text-center container mx-auto mt-4">
-            <div class="row">
-                <div >
-                    <h1>AlertZ</h1>
-                    <h3>Tu red de alarmas N1</h3>
-                </div>
-            </div>
-        </section> 
-        <section class="container">
-            <div class="row align-items-center py-4">
-                <div class="col-6  p-l">
-                    <p class="text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure id non sunt magnam illo doloribus, suscipit minus fugit, vitae beatae provident ea ex eos minima alias soluta ipsum, nobis dicta est qui consectetur quisquam totam aspernatur ipsa? Fuga commodi laudantium veniam ut aliquam id, numquam, dignissimos odit illum, tempore alias!</p>
-                </div>
-            </div>
-            <div class="row align-items-center  py-4">
-                <div class="col-6 p-l"><img src="{% static 'assets/img/landing1.jpg' %}" alt=""></div>
-            </div>
-        </section>
-        {% if not user.is_authenticated %}
-        <section class="container">
-            <a class="btn btn-primary my-3" href="{% url 'login' %}" role="button">Iniciar sesión</a> 
-        </section>
-        {%endif%}
+
+<section class=" jumbotron text-center container mx-auto mt-4">
+    <div class="row">
+        <div >
+            <h1>AlertZ</h1>
+            
+        </div>
     </div>
+</section> 
+<section class="container">
+    <div class="row align-items-center py-4">
+        <div class="descripcion">
+            <h3>Tu red de alarmas Nº1</h3>
+            <p class="text-justify">AlertZ es nuestro trabajo de sintesis. Hecho por Ivan Romero i Eduard Valle, consiste en un sistema de seguridad para el hogar con alertas automatizadas que enviará los datos a esta web para facilitar el visionado de la informacion de los usuarios.</p>
+            {% if not user.is_authenticated %}
+                <a class="btn btn-primary my-3" href="{% url 'login' %}" role="button">Iniciar sesión</a> 
+            {%endif%}
+        </div>
+    </div>
+</section>
+
 
 {% endblock %}

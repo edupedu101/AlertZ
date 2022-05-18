@@ -1,60 +1,75 @@
-const app = Vue.createApp({
+const sensor = JSON.parse(document.getElementById('sensor').textContent);
+const registros = JSON.parse(document.getElementById('registros').textContent);
+const sensores = JSON.parse(document.getElementById('sensores').textContent);
+
+let app = Vue.createApp({
+    delimiters: ['[[', ']]'],
     data(){
-        return {     
-            indice: 0,      
+        return {       
             id_sensor: '',
             nombre_sensor: '',
             sensores: [],
             registros: [],
+            hay_registros: false
 
-        };
+        }
     },
-
-    methods: {
-        get_sensores(){
-            fetch(`/api/sensores`,{method: 'GET'})
+    watch:{
+        id_sensor:{
+            handler(){
+                this.actualizar()
+            }
+        },
+        hay_registros(){
+            if(registros.length == 0){
+                this.hay_registros = false
+            }else{
+                this.hay_registros = true
+            }
+        }
+    },
+    methods:{
+        actualizar(){
+            this.getRegistros()
+            this.getNombreSensor()
+        },
+        getNombreSensor(){
+            fetch(`/api/sensor/${this.id_sensor}/nombre_sensor`, {method: 'GET'})
             .then(response => response.json())
-            .then((res) =>{
-                this.sensores = res.data;
+            .then((res) => {
+                this.nombre_sensor = res.data
             })
         },
-        get_registros(){
+        getRegistros(){
             fetch(`/api/registros/${this.id_sensor}`, {method: 'GET'})
             .then(response => response.json())
             .then((res) => {
                 this.registros = res.data;
             })
         },
-        get_nombre_sensor(){
-            this.nombre_sensor = this.sensores[this.indice].nombre;   
-        },
-        
         set_anterior(){
-            if(this.indice  <= 0){
-                
+            let indice = this.sensores.indexOf(this.id_sensor)
+            if(indice  == 0){
+                this.id_sensor = this.sensores[this.sensores.length -1];
             }else{
-                this.indice--;
-                this.id_sensor = sensores[this.indice].id;
-                this.get_registros();}
+                this.id_sensor = this.sensores[indice-1];
+                }
         },
         set_siguiente() {
-            if(this.indice  >= len(this.sensores)){
-
+            let indice = this.sensores.indexOf(this.id_sensor)
+            if(indice  == this.sensores.length - 1){
+                this.id_sensor = this.sensores[0];
             }else{
-                this.indice++;
-                this.id_sensor = sensores[this.indice].id;
-                this.get_registros();
-                this.get_nombre_sensor();
+                this.id_sensor = this.sensores[indice+1];
+                
             }
-        },
-        
+        }
     },
-    mounted() {
-            this.get_sensores();
-            this.id_sensor = sensores[this.indice].id;
-            this.get_registros();
-            this.get_nombre_sensor();
-    
-      }
-});
-const root = app.mount('#app')
+    mounted(){
+        this.registros = registros;
+        this.id_sensor = sensor.id;
+        this.nombre_sensor = sensor.nombre;
+        this.sensores = sensores;
+    }
+})
+app.mount('#app')

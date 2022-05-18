@@ -4,6 +4,7 @@ from app.models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.forms.models import model_to_dict
 
 def index(request):
     return render(request, 'app/index.html')
@@ -16,15 +17,25 @@ def todosRegistros(request):
     }
     
     return render(request, 'app/registros.html', contexto)
-  
+
+def prueba(request):
+  return render(request, 'app/example.html')
+
 @login_required  
-def registros(request):
-    sensores = Sensor.objects.filter(usuario =request.user)
-    registros = Registro.objects.filter(sensor = sensores).values
-    contexto = {
-        "registros": list(registros)
-    }
+def showRegistros(request, id_sensor):
+    id_sensores = []
+    sensores = Sensor.objects.filter(usuario=request.user.id)
+    for sensor in sensores:
+      id_sensores.append(sensor.id)
     
+    sensor = Sensor.objects.get(id=id_sensor)
+    sensor_dict = model_to_dict(sensor)
+    registros = Registro.objects.filter(sensor_id = id_sensor).values()
+    contexto = {
+      'sensor':sensor_dict,
+      'sensores': list(id_sensores),
+      'registros': list(registros)
+    }
     return render(request, 'app/registros.html', contexto)
 
 @login_required
@@ -39,6 +50,3 @@ def panelControl(request):
     }
     return render(request, 'app/dashboard.html', contexto)     
 
-@login_required
-def showRegistros(request):
-  return render(request, "app/registros.html")

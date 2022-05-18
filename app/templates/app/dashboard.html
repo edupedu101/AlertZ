@@ -7,46 +7,38 @@
 {% load static %}
 
 {% block content %}
-    <div class="container justify-content-center c-principal">
-        <div class="titulo" >
-            <h2>Bienvenido {{username}}</h2>
-        </div>   
-        <div class="container d-flex justify-content-center flex-">
-            <div class="lista-sensores">
-                <h3>Sensores</h3>
-                <div>
-                    <ul>
-                        {% for sensor in sensores %}
-                            <li>
-                                <div class="d-flex  flex-row contenido-registro">
-                                    <div><a href="cpanel/registros">{{sensor.nombre}}</a></div>
-                                    <div>{{sensor.modelo}}</div>
-                                    <div>{{sensor.desc}}</div>                               
-                                </div>
-                            </li>
-                        
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="lista-sensores">
-                <h3>Dispositivos</h3>
-                <div>
-                    <ul>
-                        {% for dispositivo in dispositivos  %}
-                        <li>
-                            <div class="d-flex  flex-row contenido-registro">
-                                <div>{{dispositivo.nombre}}</div>
-                                <div>{{dispositivo.modelo}}</div>
-                                <div>{{dispositivo.status}}</div>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div></div>
+<script src="{% static 'assets/js/dashboard.js'%}"></script>
+
+<div class="titulo" >
+    <h2>Bienvenido {{username}}</h2>
+</div>   
+<div class=" c-tabla container d-flex justify-content-center flex-wrap">
+    <h3>Sensores</h3>
+    <div class="table">  
+        <table class="table table-striped table-dark tabla">
+            <thead >
+                <th scope="col">Nombre</th><th scope="col">Modelo</th><th scope="col">Tipo</th ><th scope="col">Registros</th>
+            </thead>
+            <tbody>
+                {% for sensor in sensores %}
+                    <tr>
+                        <td><a href="cpanel/registros/{{sensor.id}}">{{sensor.nombre}}</a></td>
+                        <td>{{sensor.modelo}}</td>
+                        <td>{{sensor.tipo_sensor}}</td>     
+                        <td>{{sensor.Registros}}</td>                       
+                    </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
+<div class="gallery">
+
+</div>
+
+
+        
+    
 
 {% endblock %}
