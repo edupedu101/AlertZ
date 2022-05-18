@@ -1,0 +1,44 @@
+{%  extends 'app/components/base.html' %}
+
+{% block title %}{{tarea.titulo}}{% endblock %}
+
+{% block extraclass %}AlertZ{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<script src="{% static 'assets/js/dashboard.js'%}"></script>
+
+<div class="titulo" >
+    <h2>Bienvenido {{username}}</h2>
+</div>   
+<div class=" c-tabla container d-flex justify-content-center flex-wrap">
+    <h3>Sensores</h3>
+    <div class="table">  
+        <table class="table table-striped table-dark tabla">
+            <thead >
+                <th scope="col">Nombre</th><th scope="col">Modelo</th><th scope="col">Tipo</th ><th scope="col">Registros</th>
+            </thead>
+            <tbody>
+                {% for sensor in sensores %}
+                    <tr>
+                        <td><a href="cpanel/registros/{{sensor.id}}">{{sensor.nombre}}</a></td>
+                        <td>{{sensor.modelo}}</td>
+                        <td>{{sensor.tipo_sensor}}</td>     
+                        <td>{{sensor.Registros}}</td>                       
+                    </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="gallery">
+
+</div>
+
+
+        
+    
+
+{% endblock %}

@@ -4,7 +4,10 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="index"),
-    path('registros', views.todosRegistros, name="registros")
+    path('registros', views.todosRegistros, name="registros"),
+    path('cpanel', views.panelControl, name="cpanel"),
+    path('cpanel/registros/<int:id_sensor>', views.showRegistros, name="registros"),
+    path('prueba', views.prueba, name="prueba")
 ]
 
 
@@ -14,4 +17,5 @@ from .forms import CustomLoginForm
 urlpatterns += [
     path('login/', LoginView.as_view(authentication_form=CustomLoginForm), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
 ]
