@@ -1,3 +1,4 @@
+from ast import For
 from django.shortcuts import render
 from django.http import JsonResponse, Http404
 from app.models import *
@@ -5,6 +6,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms.models import model_to_dict
+from django.conf import settings
 
 def index(request):
     return render(request, 'app/index.html')
@@ -34,7 +36,8 @@ def showRegistros(request, id_sensor):
     contexto = {
       'sensor':sensor_dict,
       'sensores': list(id_sensores),
-      'registros': list(registros)
+      'registros': list(registros),
+      'media_url': settings.MEDIA_URL
     }
     return render(request, 'app/registros.html', contexto)
 
@@ -50,3 +53,26 @@ def panelControl(request):
     }
     return render(request, 'app/dashboard.html', contexto)     
 
+@login_required
+def galeria(request):
+  registros_sensor = []
+  registros_imagen = []
+  sensores = Sensor.objects.filter(usuario = request.user)
+  
+  for sensori in sensores:
+    registros_sensor = Registro.objects.filter(sensor = sensori)
+    for registro in registros_sensor:
+      if(not registro.imagen is None):
+        registros_imagen.append({
+          'fecha':str(registro.fecha_hora),
+          'nombre_sensor':registro.sensor.nombre,
+          'imagen':registro.imagen
+        })
+  
+  contexto = {
+      'registros_imagen':registros_imagen,
+      'media_root': settings.MEDIA_ROOT,
+      'media_url': settings.MEDIA_URL
+  }
+  return render(request, 'app/galeria.html', contexto)
+  
