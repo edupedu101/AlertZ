@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+#from wagtail.images.views.serve import ServeView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls'))
@@ -37,5 +39,7 @@ urlpatterns += [
     path('api/registros/<int:id_sensor>', views.getRegistros ),
     path('api/sensor/<int:id_sensor>/nombre_sensor', views.getNombreSensor),
     path('api/sensores/registros/numRegistros', views.getNumRegistros),
-    path('api/sendTexto', views.apiPrueba)
+    path('api/sendTexto', views.apiPrueba),
+#    re_path(r'^images/([^/]*)/(\d*)/([^/]*)/[^/]*$', ServeView.as_view(), name='wagtailimages_serve'),
+#    re_path(r'', include(wagtail_urls)),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
