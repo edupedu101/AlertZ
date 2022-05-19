@@ -13,6 +13,6 @@ function getNumRegistros(){
 }
 function colocarNumRegistros(numRegistros){
     for (let i = 0; i < numRegistros.length; i++) {
-        $('table tbody tr:nth-child('+(i+1)+') td:nth-child(4)').text(numRegistros[i])
+        $('table tbody tr:nth-child('+(i+1)+') td:nth-child(4) span').text(numRegistros[i])
     }
 }
