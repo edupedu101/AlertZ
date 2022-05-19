@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 
-ALLOWED_HOSTS = ['f2mac.local', '192.168.1.116', '192.168.41.160','0.0.0.0','192.168.41.162','192.168.40.173','AlertZ','AlertZ.com','alertz','127.0.0.1','AlertZ.kek','localhost']
+ALLOWED_HOSTS = ['alertz.localhost', 'alertz.local', 'alertz', 'f2mac.local', '192.168.1.116', '192.168.41.160','0.0.0.0','192.168.41.162','192.168.40.173','AlertZ','AlertZ.com','alertz','127.0.0.1','AlertZ.kek','localhost']
 
 
 
