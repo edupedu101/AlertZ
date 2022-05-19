@@ -1,0 +1,47 @@
+{%  extends 'app/components/base.html' %}
+
+{% block title %}{{tarea.titulo}}{% endblock %}
+
+{% block extraclass %}registros{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+
+{{ registros|json_script:"registros" }}
+{{ sensor|json_script:"sensor" }}
+{{ sensores|json_script:"sensores"}}
+
+<body id="app">
+<div class="container justify-content-center">
+    <div class="titulo container d-flex justify-content-center">
+        {%if sensores|length > 1 %}
+            <button class="btn btn-primary btn-block" @click="set_anterior()">&#8249;</button>
+        {% endif%}
+        <h2>[[nombre_sensor]]</h2>
+        {%if sensores|length > 1 %}
+            <button class="btn btn-primary btn-block" @click="set_siguiente()">&#8250;</button>
+        {% endif%}
+    </div>
+    <div class="container d-flex justify-content-center">
+        <ul class="list-group mt-5">
+                <li class="list-group-item d-flex justify-content-between align-content-center" v-for="registro in registros">
+                    <div class="d-flex flex-row"><a :href="'{{ media_url }}'+[[registro.imagen]]"> <img :src="'{{ media_url }}'+[[registro.imagen]]"  /></a>
+                        <div class="ml-2">
+                            <h6 class="mb-0">[[registro.fecha_hora]]</h6>
+                        </div>
+                    </div>
+                </li>
+
+        </ul>
+    </div>
+    <div v-if="hay_registros" class="">
+        <h3>No hay registros disponibles</h3>
+    </div>
+</div>
+</body>
+<script src="{% static 'assets/js/registros.js' %}"></script> 
+
+{% endblock %}
+

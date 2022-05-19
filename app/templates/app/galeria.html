@@ -1,0 +1,19 @@
+{%  extends 'app/components/base.html' %}
+
+{% block title %}{{tarea.titulo}}{% endblock %}
+
+{% block extraclass %}AlertZ{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="c-principal container d-flex flex-wrap">
+        {% for registro_imagen in registros_imagen  %}
+            <div class="g-imagen">
+                <a href="{{media_url}}{{registro_imagen.imagen}}"><img src="{{media_url}}{{registro_imagen.imagen}}" alt="{{registro_imagen.fecha}}" width="300"></a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

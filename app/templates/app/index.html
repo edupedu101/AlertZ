@@ -1,0 +1,32 @@
+{%  extends 'app/components/base.html' %}
+
+{% block title %}{{tarea.titulo}}{% endblock %}
+
+{% block extraclass %}AlertZ{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<section class=" jumbotron text-center container mx-auto mt-4">
+    <div class="row">
+        <div >
+            <h1>AlertZ</h1>
+            
+        </div>
+    </div>
+</section> 
+<section class="container">
+    <div class="row align-items-center py-4">
+        <div class="descripcion">
+            <h3>Tu red de alarmas Nº1</h3>
+            <p class="text-justify">AlertZ es nuestro trabajo de sintesis. Hecho por Ivan Romero i Eduard Valle, consiste en un sistema de seguridad para el hogar con alertas automatizadas que enviará los datos a esta web para facilitar el visionado de la informacion de los usuarios.</p>
+            {% if not user.is_authenticated %}
+                <a class="btn btn-primary my-3" href="{% url 'login' %}" role="button">Iniciar sesión</a> 
+            {%endif%}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
