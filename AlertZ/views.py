@@ -164,11 +164,10 @@ def sensorImagen(request):
             'status': 'ERROR',
             'message': 'No se encuentra la imagen'
         })
-    
-     
-    file_path = os.path.join(media_dir,"users", username, imagen.name )    
+
+    file_path = os.path.join(media_dir,'users', username, imagen.name )
     default_storage.save(file_path, imagen)
-    relative_path = os.path.join("users", username, imagen.name )   
+    relative_path = os.path.join('users', username, imagen.name )
     r.imagen = (relative_path)
     r.save()
     return Response({
@@ -177,5 +176,3 @@ def sensorImagen(request):
         'usuario': request.user.username,
         'path': relative_path
     })
-        
-           
