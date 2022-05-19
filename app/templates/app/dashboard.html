@@ -25,17 +25,18 @@
                         <td><a href="cpanel/registros/{{sensor.id}}">{{sensor.nombre}}</a></td>
                         <td>{{sensor.modelo}}</td>
                         <td>{{sensor.tipo_sensor}}</td>     
-                        <td>{{sensor.Registros}}</td>                       
+                        <td><span class="badge badge-primary badge-pill"></span></td>                       
                     </tr>
-                
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
-<div class="gallery">
 
-</div>
+<div id="galeria">
+    <img src="{% static 'assets/img/image.png' %}">
+    <a class="btn btn-primary" href="{% url 'galeria' %}"><h3>Galeria</h3></a>
+</div> 
 
 
         

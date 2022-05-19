@@ -22,8 +22,7 @@ class Registro(models.Model):
     fecha_hora = models.DateTimeField()
     sensor = models.ForeignKey(Sensor, on_delete=models.DO_NOTHING)
     imagen = models.ImageField(default=None, blank=True, null=True)
-    def __str__(self):
-        return str(self.fecha_hora)    
+   
 
 class Dispositivo(models.Model):
     class TipoPeriferico(models.TextChoices):
@@ -37,6 +36,4 @@ class Dispositivo(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=False , null=False, default=None)
     def __str__(self):
         return self.nombre
-    
-
     
